@@ -20,7 +20,7 @@ export default function handler(
         return res.status(400).send('Missing paste parameter in request.');
     }
 
-    const pasteDirectory = path.resolve(`${process.cwd()}/pastes/${file}.txt`)
+    const pasteDirectory = path.resolve(`${process.cwd()}/pastes/${file}.txt`);
 
     try {
         const pasteExists = fs.existsSync(pasteDirectory);
