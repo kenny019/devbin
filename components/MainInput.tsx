@@ -14,7 +14,7 @@ const MainInput = () : JSX.Element => {
         <div className=''>
 
             <textarea 
-            className="textarea bg-slate-100 w-full font-mono" 
+            className="textarea bg-slate-100 w-full font-mono h-64" 
             placeholder="Enter code"
             >
             </textarea>
