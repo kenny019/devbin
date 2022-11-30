@@ -8,11 +8,13 @@ import Stats from '../components/Stats';
 const Home: NextPage = () => {
   return (
 	<>
-	<Navbar/>
-	<div className='min-h-screen items-center justify-center py-2 max-w-lg mx-auto'>
-		<Stats/>
-		<MainInput/> 
-	  </div>
+	<div className='flex flex-col min-h-screen py-2 max-h-full'>
+		<div className='items-center justify-center max-w-screen-xl w-10/12 mx-auto flex-1'>
+			<Stats/>
+			<MainInput/>
+		</div>
+		<Navbar/>
+	</div>
 	</>
   )
 }

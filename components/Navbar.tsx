@@ -27,7 +27,7 @@ const Navbar = () : JSX.Element => {
 
     return (
         <>
-        <nav className='bottom-0 w-screen py-4 z-40 absolute bg-stone-50 dark:bg-zinc-800'>
+        <nav className='bottom-0 w-full py-4 mt-4 relative bg-stone-50 dark:bg-zinc-800'>
             <div className='max-w-6xl mx-auto'>
                 <div className=''> {/* logo */}
                     <div className='flex items-center relative'>
