@@ -33,9 +33,9 @@ const Navbar = () : JSX.Element => {
                     <div className='flex items-center relative'>
                         <em className='px-2 rounded-md box-decoration-clone bg-gradient-to-r dark:from-stone-700 dark:to-stone-800 from-gray-100 to-white text-gray-600 dark:text-white text-2xl font-bold cursor-pointer select-none mr-3 hover:text-gray-200 dark:hover:text-gray-400'>devBin</em>
                         <div className='flex space-x-6 ml-auto text-sm cursor-pointer select-none font-semibold border-l border-slate-200 pl-4'>
-                            <NavItem text='About'/>
-                            <NavItem text='Github'/>
-                            <NavItem text='API'/>
+                            <NavItem url="/" text='About'/>
+                            <NavItem url="https://github.com/kenny019/devbin" text='Github'/>
+                            <NavItem url="/" text='API'/>
                             <DarkModeButton theme={theme} setTheme={setTheme}/>
                         </div>
                     </div>

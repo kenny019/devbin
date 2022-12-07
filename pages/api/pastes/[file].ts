@@ -21,7 +21,7 @@ export default function handler(
     }
 
     const pasteDirectory = path.resolve(`${process.cwd()}/pastes/${file}.txt`);
-
+    
     try {
         const pasteExists = fs.existsSync(pasteDirectory);
 
