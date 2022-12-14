@@ -2,9 +2,35 @@ import { ChangeEvent, useEffect, useState, useRef } from 'react';
 import crypto from 'crypto';
 import { useRouter } from 'next/router';
 
+const handleFileRead = (inputFile: File) : Promise<string> => {
+    return new Promise((res, rej) => {
+        const fileReader = new FileReader();
+        
+        fileReader.readAsText(inputFile);
+        fileReader.onload = () => {
+            let output = fileReader.result;
+            if (typeof output !== 'string') {
+                rej('');
+                return;
+            }
+
+            res(output);
+        }
+
+        fileReader.onerror = () => {
+            rej('')
+        }
+
+    })
+}
+
 const MainInput = () : JSX.Element => {
 
     const [codeInput, setCodeInput] = useState<string>('');
+    const [inputFile, setInputFile] = useState<File>();
+
+
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     const router = useRouter();
 
@@ -23,9 +49,25 @@ const MainInput = () : JSX.Element => {
                 <button
                 type="button"
                 className="group -my-2 -ml-2 inline-flex items-center rounded-full px-3 py-2 text-left text-gray-400"
+                onClick={async (event) => {
+                    fileInputRef.current?.click();
+                }}
                 >
-                <span className="text-sm italic text-gray-500 group-hover:text-gray-600 dark:text-white dark:group-hover:text-zinc-300">Attach a file</span>
+                <span className="text-sm italic text-gray-500 group-hover:text-gray-600 dark:text-white dark:group-hover:text-zinc-300">{inputFile ? inputFile.name : 'Attach a file'}</span>
                 </button>
+
+                <input
+                type='file'
+                className='hidden'
+                ref={fileInputRef}
+                onChange={(event) => {
+                    if (!event.target.files) {
+                        return;
+                    }
+
+                    setInputFile(event.target.files[0]); 
+                }}
+                />
             </div>
             <div className="flex-shrink-0">
                 <button
@@ -37,11 +79,19 @@ const MainInput = () : JSX.Element => {
                     // encrypt via aes-256
                     // redirect to the page with key in the link
 
+                    let submitData = codeInput;
+
+                    if (inputFile) {
+                        const fileData = await handleFileRead(inputFile);
+
+                        if (fileData.length > 1) submitData = fileData;
+                    }
+
                     const initVector = crypto.randomBytes(16);
                     const secretKey = crypto.randomBytes(32);
 
                     const cipher = crypto.createCipheriv('aes-256-cbc', secretKey, initVector);
-                    let encrypted = cipher.update(codeInput, 'utf8', 'base64');
+                    let encrypted = cipher.update(submitData, 'utf8', 'base64');
                     encrypted += cipher.final('base64');
 
                     const res = await fetch('/api/new', {
