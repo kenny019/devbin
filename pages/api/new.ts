@@ -8,7 +8,7 @@ import {
     createHash,
 } from 'crypto';
 
-interface RequestData {
+type RequestData = {
     data: string,
 }
 
@@ -36,6 +36,20 @@ export default function handler(
 
         const pasteHash = hash.digest('base64url');
 
+
+        let stats = JSON.parse(fs.readFileSync(`${process.cwd()}/stats.json`).toString());
+
+        stats.pastes++;
+        stats.daily++;
+
+        const curTime = Math.floor(Date.now() / 1000);
+
+        if ((curTime - stats.reset_time) > 86400) {
+            stats.reset_time = Math.floor(Date.now());
+            stats.daily = 0;
+        }
+
+        fs.writeFileSync(path.resolve(`${process.cwd()}/stats.json`), JSON.stringify(stats, null, 4));
         fs.writeFileSync(path.resolve(`${process.cwd()}/pastes/${pasteHash}.txt`), data);
 
         return res.status(201).send(pasteHash);

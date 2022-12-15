@@ -107,7 +107,6 @@ const MainInput = () : JSX.Element => {
                     const pasteLink = await res.text();
 
                     router.push(`${process.env.NEXT_PUBLIC_URL}/pastes/${pasteLink}#${initVector.toString('hex')}#${secretKey.toString('hex')}`);
-
                 }}
                 >
                 Paste
