@@ -39,7 +39,7 @@ export default function handler(
 		stats.pastes++;
 		stats.daily++;
 
-		const curTime = Math.floor(Date.now() / 1000);
+		const curTime = Math.floor(Date.now());
 
 		if (curTime - stats.reset_time > 86400) {
 			stats.reset_time = Math.floor(Date.now());
