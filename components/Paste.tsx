@@ -91,7 +91,7 @@ const Paste = ({ paste }: { paste: string }): JSX.Element => {
 			) : (
 				<div>
 					<Skeleton className={"w-[58px] h-[42px] mb-2"} />
-					<Skeleton className={"w-full h-[1080px]"} />
+					<Skeleton className={"w-full h-[256px]"} />
 				</div>
 			)}
 			<div
